@@ -1,5 +1,28 @@
+# Emotion Recognition Application Dependencies
+# Supports both Desktop App and Web App
+# Install with: pip install -r requirements.txt
+
+# ============================================
+# Core Dependencies (Used by both apps)
+# ============================================
 opencv-python
 numpy
 tensorflow
 tf-keras
 pillow
+deepface
+
+# ============================================
+# Web Application Dependencies
+# ============================================
+# Web Framework
+flask==3.0.0
+flask-socketio==5.3.5
+flask-cors==4.0.0
+
+# WebSocket Support
+python-socketio==5.10.0
+python-engineio==4.8.0
+
+# Additional utilities
+werkzeug==3.0.1

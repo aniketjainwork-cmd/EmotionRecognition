@@ -1,13 +1,12 @@
 """
 Main Application Entry Point
-Real-time emotion detection from camera
+Real-time emotion detection from camera using shared EmotionProcessor
 """
 
 import sys
 import cv2
 from camera_handler import CameraHandler
-from face_detector import FaceDetector
-from emotion_classifier import EmotionClassifier
+from emotion_processor import EmotionProcessor
 
 
 def main():
@@ -22,8 +21,7 @@ def main():
     
     # Initialize components
     camera = CameraHandler(camera_source=0)
-    face_detector = FaceDetector()
-    emotion_classifier = EmotionClassifier()
+    emotion_processor = EmotionProcessor()
     
     # Start camera
     if not camera.start_camera():
@@ -35,7 +33,7 @@ def main():
     # Variables for throttling emotion predictions
     frame_count = 0
     prediction_interval = 30  # Predict emotion every 30 frames (~1 second at 30 FPS)
-    last_emotions = {}  # Store last emotion for each face
+    last_result = None  # Store last processing result
     
     try:
         while True:
@@ -48,48 +46,14 @@ def main():
             
             frame_count += 1
             
-            # Detect faces
-            faces = face_detector.detect_faces(frame)
+            # Process frame using shared module every N frames
+            if frame_count % prediction_interval == 0:
+                last_result = emotion_processor.process_frame(frame, resize_for_speed=False)
             
-            # Process each detected face
-            for idx, (x, y, w, h) in enumerate(faces):
-                # Only predict emotion every N frames to slow down refresh rate
-                if frame_count % prediction_interval == 0:
-                    # Extract face region
-                    face_roi = face_detector.extract_face_roi(frame, (x, y, w, h))
-                    
-                    if face_roi is not None:
-                        # Predict emotion
-                        emotion, confidence = emotion_classifier.predict_emotion(face_roi)
-                        
-                        if emotion:
-                            # Store this emotion for this face
-                            last_emotions[idx] = (emotion, confidence)
-                
-                # Use the last predicted emotion for display
-                if idx in last_emotions:
-                    emotion, confidence = last_emotions[idx]
-                    
-                    # Get color for emotion
-                    color = emotion_classifier.get_emotion_color(emotion)
-                    
-                    # Draw rectangle
-                    cv2.rectangle(frame, (x, y), (x+w, y+h), color, 3)
-                    
-                    # Display emotion label
-                    if confidence > 0:
-                        label = f"{emotion} {confidence*100:.0f}%"
-                    else:
-                        label = f"{emotion}"
-                    
-                    # Add background for text
-                    (label_width, label_height), _ = cv2.getTextSize(
-                        label, cv2.FONT_HERSHEY_SIMPLEX, 0.9, 2
-                    )
-                    cv2.rectangle(frame, (x, y-35), (x+label_width+10, y), color, -1)
-                    
-                    cv2.putText(frame, label, (x+5, y-10), 
-                               cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2)
+            # Draw emotions if we have results
+            if last_result and last_result['face_detected']:
+                for emotion_data in last_result['emotions']:
+                    frame = emotion_processor.draw_emotion_on_frame(frame, emotion_data)
             
             # Display instruction
             cv2.putText(frame, "Press 'q' to quit", (10, 30), 

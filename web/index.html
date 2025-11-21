@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection - Live</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Socket.IO Client Library -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🎭 Real-Time Emotion Detection</h1>
+            <p class="subtitle">AI-powered facial emotion recognition</p>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Video Container -->
+            <div class="video-container">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="overlay"></canvas>
+                
+                <!-- Emotion Display Overlay -->
+                <div id="emotion-display" class="emotion-overlay hidden">
+                    <div class="emotion-content">
+                        <span class="emoji" id="emotion-emoji">😊</span>
+                        <div class="emotion-info">
+                            <h2 id="emotion-label">Happy</h2>
+                            <p id="confidence-score">85%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Message -->
+                <div id="status-message" class="status-message">
+                    Click "Start Detection" to begin
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button id="start-btn" class="btn btn-primary">
+                    <span class="btn-icon">▶️</span>
+                    Start Detection
+                </button>
+                <button id="stop-btn" class="btn btn-secondary" disabled>
+                    <span class="btn-icon">⏸️</span>
+                    Stop Detection
+                </button>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="stats-panel">
+                <div class="stat-item">
+                    <span class="stat-label">Status</span>
+                    <span class="stat-value" id="connection-status">Disconnected</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Frames Processed</span>
+                    <span class="stat-value" id="frames-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Last Update</span>
+                    <span class="stat-value" id="last-update">--</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Powered by DeepFace & OpenCV | Built with ❤️</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

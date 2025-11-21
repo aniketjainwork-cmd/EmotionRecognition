@@ -1,0 +1,345 @@
+/* ========================================
+   Global Styles & Reset
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* ========================================
+   Container & Layout
+   ======================================== */
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 1000px;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* ========================================
+   Main Content
+   ======================================== */
+main {
+    padding: 30px;
+}
+
+/* ========================================
+   Video Container
+   ======================================== */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+#webcam {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* ========================================
+   Emotion Overlay
+   ======================================== */
+.emotion-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.emotion-overlay.hidden {
+    opacity: 0;
+    transform: translateX(120%);
+}
+
+.emotion-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.emoji {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.emotion-info h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+#confidence-score {
+    font-size: 1.2rem;
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* ========================================
+   Status Message
+   ======================================== */
+.status-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    z-index: 5;
+}
+
+.status-message.hidden {
+    display: none;
+}
+
+/* ========================================
+   Controls
+   ======================================== */
+.controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* ========================================
+   Stats Panel
+   ======================================== */
+.stats-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+#connection-status.connected {
+    color: #28a745;
+}
+
+#connection-status.disconnected {
+    color: #dc3545;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+footer {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Emotion Colors (for dynamic styling)
+   ======================================== */
+.emotion-happy { color: #28a745; }
+.emotion-sad { color: #007bff; }
+.emotion-angry { color: #dc3545; }
+.emotion-surprise { color: #ffc107; }
+.emotion-fear { color: #e83e8c; }
+.emotion-disgust { color: #6f42c1; }
+.emotion-neutral { color: #6c757d; }
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .emotion-overlay {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        padding: 15px;
+    }
+
+    .emotion-content {
+        gap: 10px;
+    }
+
+    .emoji {
+        font-size: 2rem;
+    }
+
+    .emotion-info h2 {
+        font-size: 1.2rem;
+    }
+
+    .stats-panel {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.processing {
+    animation: pulse 1.5s infinite;
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
