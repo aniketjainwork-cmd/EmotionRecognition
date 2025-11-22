@@ -126,13 +126,17 @@ def handle_frame(data):
 # ========================================
 
 if __name__ == '__main__':
+    import os
+    
+    # Get port from environment variable (Render provides this)
+    port = int(os.environ.get('PORT', 5000))
+    
     print("\n" + "=" * 60)
     print("🎭 Emotion Detection Web Server")
     print("=" * 60)
-    print("Server running at: http://localhost:5000")
-    print("Open your browser and navigate to the URL above")
+    print(f"Server running on port: {port}")
     print("Press Ctrl+C to stop the server")
     print("=" * 60 + "\n")
     
-    # Run server
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)
+    # Run server (debug=False for production)
+    socketio.run(app, host='0.0.0.0', port=port, debug=False)
