@@ -138,5 +138,5 @@ if __name__ == '__main__':
     print("Press Ctrl+C to stop the server")
     print("=" * 60 + "\n")
     
-    # Run server (debug=False for production)
-    socketio.run(app, host='0.0.0.0', port=port, debug=False)
+    # Run server with production-safe settings
+    socketio.run(app, host='0.0.0.0', port=port, debug=False, allow_unsafe_werkzeug=True)
