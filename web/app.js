@@ -236,8 +236,8 @@ function captureAndSendFrame() {
     // Draw current video frame to smaller canvas
     ctx.drawImage(webcamElement, 0, 0, targetWidth, targetHeight);
     
-    // Convert canvas to base64 image with lower quality for speed
-    const imageData = canvas.toDataURL('image/jpeg', 0.6);
+    // Convert canvas to base64 image with higher quality for better accuracy
+    const imageData = canvas.toDataURL('image/jpeg', 0.8);
     
     // Restore canvas size
     canvas.width = originalWidth;
