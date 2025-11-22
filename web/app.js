@@ -65,8 +65,8 @@ function setupCanvas() {
 function connectWebSocket() {
     console.log('📡 Connecting to Flask server...');
     
-    // Connect to Flask-SocketIO server
-    socket = io('http://localhost:5000');
+    // Connect to Flask-SocketIO server (works both locally and on Render)
+    socket = io();
     
     socket.on('connect', () => {
         console.log('✅ Connected to server');
